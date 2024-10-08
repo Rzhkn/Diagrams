@@ -40,7 +40,7 @@
 Сентябрь 12  
 Ноябрь -10  
 
-![example2](/materials/example1.png)
+![example2](/materials/example2.png)
 
 ## Технологии
 - Rust
