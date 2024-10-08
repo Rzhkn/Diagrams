@@ -6,69 +6,57 @@ const H: i32 = 20;
 const MAX_DATA: i32 = (W-3)/4;
 
 fn main() {
-    let mut x: HashMap<&str,f64> = HashMap::new();
+    let mut x: HashMap<String,f64> = HashMap::new();
 
-    input_data(&mut x);
-    create_diagram(&mut x);
+    if input_data(&mut x)==1 && x.len()>0 {
+        create_diagram(&mut x);
+    }
 
-    let mut data = String::new();
-    io::stdin().read_line(&mut data).expect("Ошибка");
+    println!("\n\nДля выхода нажмите на любую кнопку..");
+    let _ = io::stdin().read_line(&mut String::new());
 }
 
-fn input_data(x: &mut HashMap<&str,f64>){
-    // let mut f = 1;
+fn input_data(x: &mut HashMap<String,f64>) -> i32 {
+    let mut f = 1;
 
-    // println!("Введите данные в следующем формате: ключ значение\n
-    //           Для выхода введите q");
+    println!("Введите данные в следующем формате: ключ значение\nДля выхода введите q");
 
-    // loop {
-    //     let mut data = String::new();
-    //     io::stdin().read_line(&mut data).expect("Ошибка");
+    loop {
+        let mut data = String::new();
+        io::stdin().read_line(&mut data).expect("Ошибка");
 
-    //     let data = data.trim();
+        let data = data.trim();
 
-    //     if data == "q" || f==0 {
-    //         break;
-    //     }
+        if data == "q" || f==0 || x.len()==MAX_DATA.try_into().unwrap() {
+            break;
+        }
 
-    //     let temp: Vec<String> = data.split_whitespace().map(String::from).collect();
+        let temp: Vec<String> = data.split_whitespace().map(String::from).collect();
 
-    //     if temp.len()!=2 {
-    //         f=0;
-    //         println!("Неккоректные данные");
-    //     }
-    //     else {
-    //         let k: String = temp[0].clone();
-    //         let v: f64 = match temp[1].trim().parse::<f64>() {
-    //             Ok(val) => val,
-    //             Err(_) => {
-    //                 println!("Значение должно быть числом");
-    //                 f=0;
-    //                 continue;
-    //             }
-    //         };
+        if temp.len()!=2 {
+            println!("Неккоректные данные");
+            f = 0;
+            break;
+        }
+        else {
+            let k: String = temp[0].clone();
+            let v: f64 = match temp[1].trim().parse::<f64>() {
+                Ok(val) => val,
+                Err(_) => {
+                    println!("Значение должно быть числом");
+                    f=0;
+                    break;
+                }
+            };
 
-    //         x.insert(k.as_str(),v);
-    //     }
+            x.insert(k,v);
+        }
+    }
 
-    // }
-
-    // f
-    
-
-    // (*x).insert("зима",-23.0);
-    // (*x).insert("весна",10.0);
-    // (*x).insert("лето",27.0);
-    // (*x).insert("осень",17.0);
-
-    (*x).insert("Аня",21.0);
-    (*x).insert("Федор",6.0);
-    (*x).insert("Кристина",43.0);
-    (*x).insert("Петр",12.0);
-    (*x).insert("Светлана",24.0);
+    f
 }
 
-fn create_diagram(x: &mut HashMap<&str,f64>) {
+fn create_diagram(x: &mut HashMap<String,f64>) {
     let max = x.values().cloned().fold(f64::MIN, f64::max);
     let min = x.values().cloned().fold(f64::MAX, f64::min);
     
@@ -79,7 +67,7 @@ fn create_diagram(x: &mut HashMap<&str,f64>) {
     print_diagram(&matr, x, max,  min, step);
 }
 
-fn fill_diagram(matr: &mut Vec<Vec<char>>, x: &mut HashMap<&str,f64>, min: f64, step: f64) {
+fn fill_diagram(matr: &mut Vec<Vec<char>>, x: &mut HashMap<String,f64>, min: f64, step: f64) {
     let count_st: i32 = (W-3*(x.len() as i32)-3) / (x.len() as i32);
     
     let mut ind_x = 0;
@@ -97,7 +85,7 @@ fn fill_diagram(matr: &mut Vec<Vec<char>>, x: &mut HashMap<&str,f64>, min: f64, 
     }
 }
 
-fn print_diagram(matr: &Vec<Vec<char>>, x: &mut HashMap<&str,f64>, mut max: f64, min: f64, step: f64) {
+fn print_diagram(matr: &Vec<Vec<char>>, x: &mut HashMap<String,f64>, mut max: f64, min: f64, step: f64) {
     let size: usize;
 
     if format!("{:.2}",max).chars().count()>format!("{:.2}",min).chars().count() {
@@ -126,7 +114,7 @@ fn print_diagram(matr: &Vec<Vec<char>>, x: &mut HashMap<&str,f64>, mut max: f64,
     }
 }
 
-fn print_legenda(x: &HashMap<&str,f64>, size: usize) {
+fn print_legenda(x: &HashMap<String,f64>, size: usize) {
     let border = || {
         for _i in 0..(W+size as i32) {
             print!("━");

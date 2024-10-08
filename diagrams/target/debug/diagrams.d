@@ -1,1 +1,1 @@
-C:\Projects\Git\Diagrams\diagrams\target\debug\diagrams.exe: C:\Projects\Git\Diagrams\diagrams\src\main.rs
+C:\MyProjects\GitHub\Diagrams\diagrams\target\debug\diagrams.exe: C:\MyProjects\GitHub\Diagrams\diagrams\src\main.rs
