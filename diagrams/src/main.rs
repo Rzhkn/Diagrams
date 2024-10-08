@@ -10,47 +10,50 @@ fn main() {
 
     input_data(&mut x);
     create_diagram(&mut x);
+
+    let mut data = String::new();
+    io::stdin().read_line(&mut data).expect("Ошибка");
 }
 
-fn input_data(x: &mut HashMap<&str,f64>) -> i32{
-    let mut f = 1;
+fn input_data(x: &mut HashMap<&str,f64>){
+    // let mut f = 1;
 
-    println!("Введите данные в следующем формате: ключ значение\n
-              Для выхода введите q");
+    // println!("Введите данные в следующем формате: ключ значение\n
+    //           Для выхода введите q");
 
-    loop {
-        let mut data = String::new();
-        io::stdin().read_line(&mut data).expect("Ошибка");
+    // loop {
+    //     let mut data = String::new();
+    //     io::stdin().read_line(&mut data).expect("Ошибка");
 
-        let data = data.trim();
+    //     let data = data.trim();
 
-        if data == "q" || f==0 {
-            break;
-        }
+    //     if data == "q" || f==0 {
+    //         break;
+    //     }
 
-        let temp: Vec<String> = data.split_whitespace().map(String::from).collect();
+    //     let temp: Vec<String> = data.split_whitespace().map(String::from).collect();
 
-        if temp.len()!=2 {
-            f=0;
-            println!("Неккоректные данные");
-        }
-        else {
-            let k: String = temp[0].clone();
-            let v: f64 = match temp[1].trim().parse::<f64>() {
-                Ok(val) => val,
-                Err(_) => {
-                    println!("Значение должно быть числом");
-                    f=0;
-                    continue;
-                }
-            };
+    //     if temp.len()!=2 {
+    //         f=0;
+    //         println!("Неккоректные данные");
+    //     }
+    //     else {
+    //         let k: String = temp[0].clone();
+    //         let v: f64 = match temp[1].trim().parse::<f64>() {
+    //             Ok(val) => val,
+    //             Err(_) => {
+    //                 println!("Значение должно быть числом");
+    //                 f=0;
+    //                 continue;
+    //             }
+    //         };
 
-            x.insert(k.as_str(),v);
-        }
+    //         x.insert(k.as_str(),v);
+    //     }
 
-    }
+    // }
 
-    f
+    // f
     
 
     // (*x).insert("зима",-23.0);
@@ -58,11 +61,11 @@ fn input_data(x: &mut HashMap<&str,f64>) -> i32{
     // (*x).insert("лето",27.0);
     // (*x).insert("осень",17.0);
 
-    // (*x).insert("Аня",21.0);
-    // (*x).insert("Федор",6.0);
-    // (*x).insert("Кристина",43.0);
-    // (*x).insert("Петр",12.0);
-    // (*x).insert("Светлана",24.0);
+    (*x).insert("Аня",21.0);
+    (*x).insert("Федор",6.0);
+    (*x).insert("Кристина",43.0);
+    (*x).insert("Петр",12.0);
+    (*x).insert("Светлана",24.0);
 }
 
 fn create_diagram(x: &mut HashMap<&str,f64>) {
